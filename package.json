@@ -31,11 +31,11 @@
     "compatibility": "^3.2.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.0.23",
-    "gm": "~1.21.1",
-    "mime": "~1.2.11",
-    "request": "~2.69.0",
-    "uuid": "~1.4.1"
+    "aws-sdk": "^2.1535.0",
+    "gm": "~1.25.0",
+    "mime": "~4.0.1",
+    "request": "~2.88.2",
+    "uuid": "*"
   },
   "devDependencies": {
     "eslint": "8.x",
