@@ -340,8 +340,7 @@ function uploadToS3(filename, err, buffer, callback) {
 			return callback(makeError(err));
 		}
 
-		// amazon has https enabled, we use it by default
-		let host = `https://${params.Bucket}.${settings.region}.s3.${settings.host}`;
+		let host = `${settings.region}.s3.${settings.host}`;
 
 		callback(null, {
 			name: filename,
