@@ -164,7 +164,7 @@ function renderAdmin(req, res) {
 		forumPath += '/';
 	}
 	const data = {
-		title: 'S3 Uploads',
+		title: 'b2 Uploads',
 		bucket: settings.bucket,
 		host: settings.host,
 		path: settings.path,

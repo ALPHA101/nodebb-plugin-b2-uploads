@@ -31,10 +31,10 @@
     "compatibility": "^3.6.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1300.0",
-    "gm": "~1.21.1",
-    "mime": "~1.2.11",
-    "request": "~2.69.0",
+    "aws-sdk": "^2.1350.0",
+    "gm": "~1.25.0",
+    "mime": "~4.00.0",
+    "request": "~2.88.0",
     "uuid": "*"
   },
   "devDependencies": {
