@@ -100,9 +100,9 @@ function fetchSettings(callback) {
 			});
 		}
 
-		if (settings.endpoint) {
+		if (settings.host) {
 			AWS.config.update({
-				endpoint: settings.endpoint
+				endpoint: settings.host
 			});
 		}
 
@@ -341,14 +341,8 @@ function uploadToS3(filename, err, buffer, callback) {
 		}
 
 		// amazon has https enabled, we use it by default
-		let host = `https://${params.Bucket}.${settings.region}.s3.backblazeb2.com`;
-		if (settings.host && settings.host.length > 0) {
-			host = settings.host;
-			// host must start with http or https
-			if (!host.startsWith('http')) {
-				host = `http://${host}`;
-			}
-		}
+		let host = `https://${params.Bucket}.${settings.region}.s3.${settings.host}`;
+
 		callback(null, {
 			name: filename,
 			url: `${host}/${params.Key}`,
