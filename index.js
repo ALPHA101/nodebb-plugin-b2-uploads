@@ -30,6 +30,7 @@ const settings = {
 	bucket: process.env.S3_UPLOADS_BUCKET || undefined,
 	host: process.env.S3_UPLOADS_HOST || 'backblazeb2.com',
 	path: process.env.S3_UPLOADS_PATH || undefined,
+	endpoint: process.env.S3_ENDPOINT || undefined,
 };
 
 let accessKeyIdFromDb = false;
@@ -37,55 +38,14 @@ let accessKeyIdFromDb = false;
 let secretAccessKeyFromDb = false;
 
 function fetchSettings(callback) {
-	db.getObjectFields(Package.name, Object.keys(settings), (err, newSettings) => {
-		if (err) {
-			winston.error(err.message);
-			if (typeof callback === 'function') {
-				callback(err);
-			}
-			return;
-		}
+		settings.accessKeyId = process.env.AWS_ACCESS_KEY_ID || ''
+		settings.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || '';
+		settings.bucket = process.env.S3_UPLOADS_BUCKET || '';
+		settings.host = process.env.S3_UPLOADS_HOST || '';
+		settings.path = process.env.S3_UPLOADS_PATH || '';
+		settings.region = process.env.AWS_DEFAULT_REGION || '';
+		settings.endpoint = process.env.S3_ENDPOINT || '';
 
-		accessKeyIdFromDb = false;
-		secretAccessKeyFromDb = false;
-
-		if (newSettings.accessKeyId) {
-			settings.accessKeyId = newSettings.accessKeyId;
-			accessKeyIdFromDb = true;
-		} else {
-			settings.accessKeyId = false;
-		}
-
-		if (newSettings.secretAccessKey) {
-			settings.secretAccessKey = newSettings.secretAccessKey;
-			secretAccessKeyFromDb = false;
-		} else {
-			settings.secretAccessKey = false;
-		}
-
-		if (!newSettings.bucket) {
-			settings.bucket = process.env.S3_UPLOADS_BUCKET || '';
-		} else {
-			settings.bucket = newSettings.bucket;
-		}
-
-		if (!newSettings.host) {
-			settings.host = process.env.S3_UPLOADS_HOST || '';
-		} else {
-			settings.host = newSettings.host;
-		}
-
-		if (!newSettings.path) {
-			settings.path = process.env.S3_UPLOADS_PATH || '';
-		} else {
-			settings.path = newSettings.path;
-		}
-
-		if (!newSettings.region) {
-			settings.region = process.env.AWS_DEFAULT_REGION || '';
-		} else {
-			settings.region = newSettings.region;
-		}
 
 		if (settings.accessKeyId && settings.secretAccessKey) {
 			AWS.config.update({
@@ -100,20 +60,15 @@ function fetchSettings(callback) {
 			});
 		}
 
-		if (settings.host) {
+		if (settings.endpoint) {
 			AWS.config.update({
-				endpoint: settings.host
+				endpoint: settings.endpoint
 			});
 		}
-
-		AWS.config.update({
-			signatureVersion: 'v4',
-		});
 
 		if (typeof callback === 'function') {
 			callback();
 		}
-	});
 }
 
 function S3() {
@@ -176,6 +131,7 @@ function renderAdmin(req, res) {
 		path: settings.path,
 		forumPath: forumPath,
 		region: settings.region,
+		endpoint: settings.endpoint,
 		accessKeyId: (accessKeyIdFromDb && settings.accessKeyId) || '',
 		secretAccessKey: (accessKeyIdFromDb && settings.secretAccessKey) || '',
 	};
@@ -340,7 +296,7 @@ function uploadToS3(filename, err, buffer, callback) {
 			return callback(makeError(err));
 		}
 
-		let host = `${settings.region}.s3.${settings.host}`;
+		let host = `https://${settings.bucket}.${settings.region}.s3.${settings.host}`;
 
 		callback(null, {
 			name: filename,
