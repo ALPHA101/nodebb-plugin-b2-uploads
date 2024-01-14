@@ -1,14 +1,14 @@
 {
-  "name": "@nodebb/nodebb-plugin-s3-uploads",
-  "version": "3.0.4",
-  "description": "A plugin for NodeBB to take file uploads and store them on S3 updated for 1.0",
+  "name": "@nodebb/nodebb-plugin-b2-uploads",
+  "version": "1.0.0",
+  "description": "A plugin for NodeBB to take file uploads and store them on backblaze b2.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NodeBB-Community/nodebb-plugin-s3-uploads.git"
+    "url": "https://github.com/ALPHA101/nodebb-plugin-b2-uploads.git"
   },
   "keywords": [
     "nodebb",
@@ -25,10 +25,10 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NodeBB-Community/nodebb-plugin-s3-uploads/issues"
+    "url": "https://github.com/ALPHA101/nodebb-plugin-b2-uploads/issues"
   },
   "nbbpm": {
-    "compatibility": "^3.2.0"
+    "compatibility": "^3.6.0"
   },
   "dependencies": {
     "aws-sdk": "^2.1535.0",
