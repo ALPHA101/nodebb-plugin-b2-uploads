@@ -1,5 +1,5 @@
 {
-  "name": "@nodebb/nodebb-plugin-b2-uploads",
+  "name": "nodebb-plugin-b2-uploads",
   "version": "1.0.0",
   "description": "A plugin for NodeBB to take file uploads and store them on backblaze b2.",
   "main": "index.js",
@@ -31,10 +31,10 @@
     "compatibility": "^3.6.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1535.0",
-    "gm": "~1.25.0",
-    "mime": "~4.0.1",
-    "request": "~2.88.2",
+    "aws-sdk": "^2.1300.0",
+    "gm": "~1.21.1",
+    "mime": "~1.2.11",
+    "request": "~2.69.0",
     "uuid": "*"
   },
   "devDependencies": {
