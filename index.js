@@ -100,6 +100,12 @@ function fetchSettings(callback) {
 			});
 		}
 
+		if (settings.endpoint) {
+			AWS.config.update({
+				endpoint: settings.endpoint
+			});
+		}
+
 		AWS.config.update({
 			signatureVersion: 'v4',
 		});
