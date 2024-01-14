@@ -57,7 +57,7 @@ function fetchSettings(callback) {
 
 		if (settings.host) {
 			AWS.config.update({
-				endpoint: settings.host
+				endpoint: `s3.${settings.region}.${settings.host}`
 			});
 		}
 
@@ -206,7 +206,7 @@ plugin.uploadImage = function (data, callback) {
 			return callback(new Error(`[[error:invalid-file-type, ${allowed.join('&#44; ')}]]`));
 		}
 
-		const filename = image.url.split('/').pop();
+		const filename = path.basename(image.path)
 
 		const imageDimension = parseInt(meta.config.profileImageDimension, 10) || 128;
 
@@ -254,7 +254,7 @@ plugin.uploadFile = function (data, callback) {
 	}
 
 	fs.readFile(file.path, (err, buffer) => {
-		uploadToS3(file.name, err, buffer, callback);
+		uploadToS3(path.basename(file.path), err, buffer, callback);
 	});
 };
 
