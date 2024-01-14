@@ -199,7 +199,7 @@ plugin.uploadImage = function (data, callback) {
 		}
 
 		fs.readFile(image.path, (err, buffer) => {
-			uploadToS3(image.name, err, buffer, callback);
+			uploadToS3(path.basename(image.path), err, buffer, callback);
 		});
 	} else {
 		if (!isExtensionAllowed(image.url, allowed)) {
@@ -291,7 +291,7 @@ function uploadToS3(filename, err, buffer, callback) {
 			return callback(makeError(err));
 		}
 
-		let host = `https://${settings.bucket}.${settings.region}.s3.${settings.host}`;
+		let host = `https://${settings.bucket}.s3.${settings.region}.${settings.host}`;
 
 		callback(null, {
 			name: filename,
