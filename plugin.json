@@ -1,5 +1,4 @@
 {
-    "library": "./index.js",
     "hooks": [
         { "hook": "static:app.load", "method": "load"},
         { "hook": "action:plugin.activate", "method": "activate"},
