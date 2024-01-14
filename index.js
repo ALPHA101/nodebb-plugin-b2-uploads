@@ -30,12 +30,9 @@ const settings = {
 	bucket: process.env.S3_UPLOADS_BUCKET || undefined,
 	host: process.env.S3_UPLOADS_HOST || 'backblazeb2.com',
 	path: process.env.S3_UPLOADS_PATH || undefined,
-	endpoint: process.env.S3_ENDPOINT || undefined,
 };
 
 let accessKeyIdFromDb = false;
-// eslint-disable-next-line no-unused-vars
-let secretAccessKeyFromDb = false;
 
 function fetchSettings(callback) {
 		settings.accessKeyId = process.env.AWS_ACCESS_KEY_ID || ''
@@ -44,8 +41,6 @@ function fetchSettings(callback) {
 		settings.host = process.env.S3_UPLOADS_HOST || '';
 		settings.path = process.env.S3_UPLOADS_PATH || '';
 		settings.region = process.env.AWS_DEFAULT_REGION || '';
-		settings.endpoint = process.env.S3_ENDPOINT || '';
-
 
 		if (settings.accessKeyId && settings.secretAccessKey) {
 			AWS.config.update({
@@ -60,9 +55,9 @@ function fetchSettings(callback) {
 			});
 		}
 
-		if (settings.endpoint) {
+		if (settings.host) {
 			AWS.config.update({
-				endpoint: settings.endpoint
+				endpoint: settings.host
 			});
 		}
 
