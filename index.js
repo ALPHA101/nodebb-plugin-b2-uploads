@@ -2,8 +2,7 @@
 
 
 const AWS = require('aws-sdk');
-// const mime = require('mime');
-import mime from 'mime';
+const mime = require('mime');
 const uuid = require('uuid').v4;
 const fs = require('fs');
 const request = require('request');
